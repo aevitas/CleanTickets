@@ -36,14 +36,16 @@ public class CreateEventTests
         IMediator mediator = services.GetRequiredService<IMediator>();
         IEventRepository eventRepository = services.GetRequiredService<IEventRepository>();
 
-        await mediator.Send(new CreateEventCommand("Great Event", "Paradise", DateTimeOffset.MaxValue, 10));
+        var command = new CreateEventCommand("Great Event", "Paradise", DateTimeOffset.MaxValue, 10);
+
+        await mediator.Send(command);
 
         Maybe<Event> e = await eventRepository.GetAsync("Great Event");
 
         Assert.True(e.HasValue);
-        Assert.Equal("Great Event", e.Value.Name);
-        Assert.Equal("Paradise", e.Value.Location);
-        Assert.Equal(DateTime.MaxValue.Date, e.Value.OccursAt.Date);
-        Assert.Equal(10, e.Value.TicketsAvailable);
+        Assert.Equal(command.Name, e.Value.Name);
+        Assert.Equal(command.Location, e.Value.Location);
+        Assert.Equal(command.OccursAt.Date, e.Value.OccursAt.Date);
+        Assert.Equal(command.TicketsAvailable, e.Value.TicketsAvailable);
     }
 }
