@@ -12,8 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\CleanTickets.Application\CleanTickets.Application.csproj" />
-    <ProjectReference Include="..\src\CleanTickets.Infrastructure.Persistence\CleanTickets.Infrastructure.Persistence.csproj" />
+    <ProjectReference Include="..\CleanTickets.Application\CleanTickets.Application.csproj" />
+    <ProjectReference Include="..\CleanTickets.Infrastructure.Persistence\CleanTickets.Infrastructure.Persistence.csproj" />
   </ItemGroup>
 
 </Project>
