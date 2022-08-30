@@ -6,7 +6,7 @@ using CleanTickets.Domain.Entities;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CleanTickets.Application.Tests;
+namespace CleanTickets.Application.Tests.Events;
 
 public class CreateEventTests
 {
