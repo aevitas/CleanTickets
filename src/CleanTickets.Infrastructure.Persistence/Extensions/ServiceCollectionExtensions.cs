@@ -11,6 +11,7 @@ public static class ServiceCollectionExtensions
     {
         services.AddScoped<IEventRepository, EventRepository>();
         services.AddScoped<ICustomerRepository, CustomerRepository>();
+        services.AddScoped<ITicketRepository, TicketRepository>();
 
         services.AddScoped<IPersistenceProvider, DefaultPersistenceProvider>();
 

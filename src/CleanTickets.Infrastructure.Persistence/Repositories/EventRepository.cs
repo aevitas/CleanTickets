@@ -27,4 +27,11 @@ internal class EventRepository : IEventRepository
 
         return Task.FromResult(result.Entity);
     }
+
+    public Task<Maybe<Event>> FindAsync(long id)
+    {
+        Event? result = _context.Events.Find(id);
+
+        return Task.FromResult(Maybe.Wrap(result));
+    }
 }

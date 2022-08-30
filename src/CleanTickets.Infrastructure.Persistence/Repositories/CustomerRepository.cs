@@ -26,4 +26,11 @@ internal class CustomerRepository : ICustomerRepository
 
         return Task.FromResult(Maybe.Wrap(result));
     }
+
+    public Task<Maybe<Customer>> FindAsync(long id)
+    {
+        var result = _context.Customers.Find(id);
+
+        return Task.FromResult(Maybe.Wrap(result));
+    }
 }
