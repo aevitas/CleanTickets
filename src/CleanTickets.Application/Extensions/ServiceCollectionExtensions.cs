@@ -14,6 +14,7 @@ public static class ServiceCollectionExtensions
 
         services.AddScoped(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehaviour<,>));
         services.AddScoped(typeof(IPipelineBehavior<,>), typeof(TransactionBehavior<,>));
+        services.AddScoped(typeof(IPipelineBehavior<,>), typeof(QueryCachingBehaviour<,>));
 
         services.AddMemoryCache();
 

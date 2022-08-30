@@ -6,6 +6,6 @@ internal class GetEventValidator : AbstractValidator<GetEventQuery>
 {
     public GetEventValidator()
     {
-        RuleFor(c => c.Name).NotEmpty();
+        RuleFor(q => q.Name).NotEmpty();
     }
 }
