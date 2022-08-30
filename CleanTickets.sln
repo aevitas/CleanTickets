@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{CB0C7DBD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanTickets.Application.Tests", "src\CleanTickets.Application.Tests\CleanTickets.Application.Tests.csproj", "{FFB9C408-E37E-42E7-8FD1-0FB895973E2C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanTickets.Api", "CleanTickets.Api\CleanTickets.Api.csproj", "{AF5FEF33-76D0-4827-BF50-1E1981A760A5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{FFB9C408-E37E-42E7-8FD1-0FB895973E2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FFB9C408-E37E-42E7-8FD1-0FB895973E2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FFB9C408-E37E-42E7-8FD1-0FB895973E2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF5FEF33-76D0-4827-BF50-1E1981A760A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF5FEF33-76D0-4827-BF50-1E1981A760A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF5FEF33-76D0-4827-BF50-1E1981A760A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF5FEF33-76D0-4827-BF50-1E1981A760A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
