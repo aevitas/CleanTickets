@@ -16,17 +16,19 @@ public class CreateEventTests
         IServiceProvider services = Services.CreateDefaultServiceProvider();
         IMediator mediator = services.GetRequiredService<IMediator>();
 
-        await Assert.ThrowsAsync<RequestValidationException>(() =>
-            mediator.Send(new CreateEventCommand(string.Empty, "Amsterdam", DateTimeOffset.MaxValue, 10000)));
+        CreateEventCommand command = new("Homecoming", "Amsterdam", DateTimeOffset.MaxValue, 10000);
 
         await Assert.ThrowsAsync<RequestValidationException>(() =>
-            mediator.Send(new CreateEventCommand("Homecoming", string.Empty, DateTimeOffset.MaxValue, 10000)));
+            mediator.Send(command with { Name = string.Empty }));
 
         await Assert.ThrowsAsync<RequestValidationException>(() =>
-            mediator.Send(new CreateEventCommand("Homecoming", "Amsterdam", DateTimeOffset.MinValue, 10000)));
+            mediator.Send(command with { Location = string.Empty }));
 
         await Assert.ThrowsAsync<RequestValidationException>(() =>
-            mediator.Send(new CreateEventCommand("Homecoming", "Amsterdam", DateTimeOffset.MaxValue, 0)));
+            mediator.Send(command with { OccursAt = DateTimeOffset.MinValue }));
+
+        await Assert.ThrowsAsync<RequestValidationException>(() =>
+            mediator.Send(command with { TicketsAvailable = 0 }));
     }
 
     [Fact]
@@ -36,7 +38,7 @@ public class CreateEventTests
         IMediator mediator = services.GetRequiredService<IMediator>();
         IEventRepository eventRepository = services.GetRequiredService<IEventRepository>();
 
-        var command = new CreateEventCommand("Great Event", "Paradise", DateTimeOffset.MaxValue, 10);
+        CreateEventCommand command = new("Great Event", "Paradise", DateTimeOffset.MaxValue, 10);
 
         await mediator.Send(command);
 

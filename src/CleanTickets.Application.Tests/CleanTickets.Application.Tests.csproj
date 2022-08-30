@@ -29,8 +29,4 @@
     <ProjectReference Include="..\CleanTickets.Infrastructure.Persistence\CleanTickets.Infrastructure.Persistence.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Tickets\" />
-  </ItemGroup>
-
 </Project>

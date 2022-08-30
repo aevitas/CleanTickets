@@ -16,11 +16,13 @@ public class CreateCustomerTests
         IServiceProvider services = Services.CreateDefaultServiceProvider();
         IMediator mediator = services.GetRequiredService<IMediator>();
 
-        await Assert.ThrowsAsync<RequestValidationException>(() =>
-            mediator.Send(new CreateCustomerCommand(string.Empty, "Last Name")));
+        CreateCustomerCommand command = new CreateCustomerCommand("Ken", "Bone");
 
         await Assert.ThrowsAsync<RequestValidationException>(() =>
-            mediator.Send(new CreateCustomerCommand("First Name", string.Empty)));
+            mediator.Send(command with { FirstName = string.Empty }));
+
+        await Assert.ThrowsAsync<RequestValidationException>(() =>
+            mediator.Send(command with { LastName = string.Empty }));
     }
 
     [Fact]
@@ -30,7 +32,7 @@ public class CreateCustomerTests
         IMediator mediator = services.GetRequiredService<IMediator>();
         ICustomerRepository repository = services.GetRequiredService<ICustomerRepository>();
 
-        CreateCustomerCommand command = new CreateCustomerCommand("Ken", "Bone");
+        CreateCustomerCommand command = new("Ken", "Bone");
 
         await mediator.Send(command);
 
