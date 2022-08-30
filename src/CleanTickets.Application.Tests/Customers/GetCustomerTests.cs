@@ -1,5 +1,6 @@
 ﻿using CleanTickets.Application.Exceptions;
 using CleanTickets.Application.Features.Customers.Get;
+using CleanTickets.Domain;
 using CleanTickets.Domain.Entities;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,8 +31,8 @@ public class GetCustomerTests
         });
         IMediator mediator = services.GetRequiredService<IMediator>();
 
-        var found = await mediator.Send(new GetCustomerQuery("Ken", "Bone"));
-        var notFound = await mediator.Send(new GetCustomerQuery("Hugh", "Mungus"));
+        Maybe<Customer> found = await mediator.Send(new GetCustomerQuery("Ken", "Bone"));
+        Maybe<Customer> notFound = await mediator.Send(new GetCustomerQuery("Hugh", "Mungus"));
 
         Assert.True(found.HasValue);
         Assert.False(notFound.HasValue);

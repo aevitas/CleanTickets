@@ -16,7 +16,7 @@ public class CreateCustomerTests
         IServiceProvider services = Services.CreateDefaultServiceProvider();
         IMediator mediator = services.GetRequiredService<IMediator>();
 
-        CreateCustomerCommand command = new CreateCustomerCommand("Ken", "Bone");
+        CreateCustomerCommand command = new("Ken", "Bone");
 
         await Assert.ThrowsAsync<RequestValidationException>(() =>
             mediator.Send(command with { FirstName = string.Empty }));

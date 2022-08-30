@@ -1,6 +1,6 @@
 ﻿using CleanTickets.Application.Exceptions;
-using FluentValidation.Results;
 using FluentValidation;
+using FluentValidation.Results;
 using MediatR;
 
 namespace CleanTickets.Application.Behaviors;
@@ -19,23 +19,31 @@ internal class RequestValidationBehaviour<TRequest, TResponse> : IPipelineBehavi
         RequestHandlerDelegate<TResponse> next)
     {
         if (!_validators.Any())
+        {
             return await next();
+        }
 
         ValidationContext<TRequest> ctx = new(request);
         List<ValidationResult> results = new();
 
-        foreach (var v in _validators)
+        foreach (IValidator<TRequest> v in _validators)
+        {
             results.Add(await v.ValidateAsync(ctx, cancellationToken));
+        }
 
-        var validationFailures = results.Where(r => !r.IsValid).ToList();
+        List<ValidationResult> validationFailures = results.Where(r => !r.IsValid).ToList();
 
         if (!validationFailures.Any())
+        {
             return await next();
+        }
 
         List<ValidationFailure> errors = new();
 
-        foreach (var e in validationFailures)
+        foreach (ValidationResult e in validationFailures)
+        {
             errors.AddRange(e.Errors);
+        }
 
         throw new RequestValidationException(errors);
     }

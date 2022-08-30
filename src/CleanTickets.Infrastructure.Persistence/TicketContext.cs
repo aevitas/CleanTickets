@@ -23,13 +23,18 @@ public class TicketContext : DbContext
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new())
     {
         foreach (EntityEntry<Entity> entry in ChangeTracker.Entries<Entity>())
+        {
             switch (entry.State)
             {
                 case EntityState.Added:
                     if (entry.Entity.Id == default)
+                    {
                         entry.Entity.Id = Id.Create();
+                    }
+
                     break;
             }
+        }
 
         return base.SaveChangesAsync(cancellationToken);
     }

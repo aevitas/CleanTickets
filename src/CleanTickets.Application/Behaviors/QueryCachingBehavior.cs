@@ -20,10 +20,14 @@ internal class QueryCachingBehaviour<TRequest, TResponse> : IPipelineBehavior<TR
         string cacheKey = request.CacheKey;
 
         if (string.IsNullOrWhiteSpace(cacheKey))
+        {
             throw new ArgumentException("Could not determine the cache key for the specified query");
+        }
 
         if (_memoryCache.TryGetValue(cacheKey, out TResponse response))
+        {
             return response;
+        }
 
         TResponse result = await next();
 
@@ -32,4 +36,3 @@ internal class QueryCachingBehaviour<TRequest, TResponse> : IPipelineBehavior<TR
         return result;
     }
 }
-
