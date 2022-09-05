@@ -1,6 +1,5 @@
 ﻿using CleanTickets.Application.Abstractions.Messaging;
 using CleanTickets.Application.Contracts;
-using CleanTickets.Domain.Entities;
 
 namespace CleanTickets.Application.Features.Events.Create;
 
