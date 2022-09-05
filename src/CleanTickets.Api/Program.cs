@@ -1,3 +1,4 @@
+using CleanTickets.Application.Contracts;
 using CleanTickets.Application.Extensions;
 using CleanTickets.Application.Features.Customers.Create;
 using CleanTickets.Application.Features.Customers.Get;
@@ -5,7 +6,6 @@ using CleanTickets.Application.Features.Events.Create;
 using CleanTickets.Application.Features.Events.Get;
 using CleanTickets.Application.Features.Tickets.Book;
 using CleanTickets.Domain;
-using CleanTickets.Domain.Entities;
 using CleanTickets.Infrastructure.Persistence;
 using CleanTickets.Infrastructure.Persistence.Extensions;
 using MediatR;
@@ -35,14 +35,14 @@ app.UseHttpsRedirection();
 
 app.MapGet("/events/{name}", async (IMediator mediator, string name) =>
 {
-    Maybe<Event> result = await mediator.Send(new GetEventQuery(name));
+    Maybe<EventModel> result = await mediator.Send(new GetEventQuery(name));
 
     return result.HasValue ? Results.Ok(result.Value) : Results.NotFound();
 }).WithName("GetEvent");
 
 app.MapPost("/events", async (IMediator mediator, [FromBody] CreateEventCommand command) =>
 {
-    Event result;
+    EventModel result;
     try
     {
         result = await mediator.Send(command);
@@ -57,14 +57,14 @@ app.MapPost("/events", async (IMediator mediator, [FromBody] CreateEventCommand 
 
 app.MapGet("customers/find", async (IMediator mediator, string firstName, string lastName) =>
 {
-    Maybe<Customer> result = await mediator.Send(new GetCustomerQuery(firstName, lastName));
+    Maybe<CustomerModel> result = await mediator.Send(new GetCustomerQuery(firstName, lastName));
 
     return result.HasValue ? Results.Ok(result.Value) : Results.NotFound();
 });
 
 app.MapPost("customers", async (IMediator mediator, [FromBody] CreateCustomerCommand command) =>
 {
-    Customer result;
+    CustomerModel result;
     try
     {
         result = await mediator.Send(command);

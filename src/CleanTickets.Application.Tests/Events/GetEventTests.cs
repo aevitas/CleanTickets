@@ -1,4 +1,5 @@
-﻿using CleanTickets.Application.Exceptions;
+﻿using CleanTickets.Application.Contracts;
+using CleanTickets.Application.Exceptions;
 using CleanTickets.Application.Features.Events.Get;
 using CleanTickets.Domain;
 using CleanTickets.Domain.Entities;
@@ -31,8 +32,8 @@ public class GetEventTests
 
         IMediator mediator = services.GetRequiredService<IMediator>();
 
-        Maybe<Event> found = await mediator.Send(new GetEventQuery("Event"));
-        Maybe<Event> notFound = await mediator.Send(new GetEventQuery("Woodstock"));
+        Maybe<EventModel> found = await mediator.Send(new GetEventQuery("Event"));
+        Maybe<EventModel> notFound = await mediator.Send(new GetEventQuery("Woodstock"));
 
         Assert.True(found.HasValue);
         Assert.False(notFound.HasValue);

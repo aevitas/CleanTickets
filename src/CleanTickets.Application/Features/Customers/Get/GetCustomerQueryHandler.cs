@@ -1,11 +1,13 @@
 ﻿using CleanTickets.Application.Abstractions.Messaging;
+using CleanTickets.Application.Contracts;
 using CleanTickets.Domain;
 using CleanTickets.Domain.Abstractions;
 using CleanTickets.Domain.Entities;
+using Mapster;
 
 namespace CleanTickets.Application.Features.Customers.Get;
 
-public class GetCustomerQueryHandler : IQueryHandler<GetCustomerQuery, Maybe<Customer>>
+public class GetCustomerQueryHandler : IQueryHandler<GetCustomerQuery, Maybe<CustomerModel>>
 {
     private readonly ICustomerRepository _customerRepository;
 
@@ -14,10 +16,10 @@ public class GetCustomerQueryHandler : IQueryHandler<GetCustomerQuery, Maybe<Cus
         _customerRepository = customerRepository;
     }
 
-    public async Task<Maybe<Customer>> Handle(GetCustomerQuery request, CancellationToken cancellationToken)
+    public async Task<Maybe<CustomerModel>> Handle(GetCustomerQuery request, CancellationToken cancellationToken)
     {
         Maybe<Customer> result = await _customerRepository.GetByNameAsync(request.FirstName, request.LastName);
 
-        return result;
+        return result.HasValue ? Maybe.Of(result.Value.Adapt<CustomerModel>()) : Maybe<CustomerModel>.NoValue;
     }
 }

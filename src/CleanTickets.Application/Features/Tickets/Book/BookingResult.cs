@@ -1,5 +1,5 @@
-﻿using CleanTickets.Domain.Entities;
+﻿using CleanTickets.Application.Contracts;
 
 namespace CleanTickets.Application.Features.Tickets.Book;
 
-public record BookingResult(bool IsSuccessful, IReadOnlyList<Ticket> Tickets);
+public record BookingResult(bool IsSuccessful, IReadOnlyList<TicketModel> Tickets);

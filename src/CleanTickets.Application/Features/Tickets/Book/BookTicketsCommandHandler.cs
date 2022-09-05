@@ -1,8 +1,10 @@
 ﻿using CleanTickets.Application.Abstractions.Messaging;
+using CleanTickets.Application.Contracts;
 using CleanTickets.Application.Exceptions;
 using CleanTickets.Domain;
 using CleanTickets.Domain.Abstractions;
 using CleanTickets.Domain.Entities;
+using Mapster;
 
 namespace CleanTickets.Application.Features.Tickets.Book;
 
@@ -47,6 +49,6 @@ public class BookTicketsCommandHandler : ICommandHandler<BookTicketsCommand, Boo
             }));
         }
 
-        return new BookingResult(tickets.Any(), tickets);
+        return new BookingResult(tickets.Any(), tickets.Adapt<List<TicketModel>>());
     }
 }

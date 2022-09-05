@@ -1,4 +1,5 @@
 ﻿using CleanTickets.Application.Abstractions.Messaging;
+using CleanTickets.Application.Contracts;
 using CleanTickets.Application.Exceptions;
 using CleanTickets.Domain;
 using CleanTickets.Domain.Abstractions;
@@ -7,7 +8,7 @@ using Mapster;
 
 namespace CleanTickets.Application.Features.Events.Create;
 
-public class CreateEventCommandHandler : ICommandHandler<CreateEventCommand, Event>
+public class CreateEventCommandHandler : ICommandHandler<CreateEventCommand, EventModel>
 {
     private readonly IEventRepository _eventRepository;
 
@@ -16,7 +17,7 @@ public class CreateEventCommandHandler : ICommandHandler<CreateEventCommand, Eve
         _eventRepository = eventRepository;
     }
 
-    public async Task<Event> Handle(CreateEventCommand request, CancellationToken cancellationToken)
+    public async Task<EventModel> Handle(CreateEventCommand request, CancellationToken cancellationToken)
     {
         Maybe<Event> existingEvent = await _eventRepository.GetAsync(request.Name);
 
@@ -29,6 +30,6 @@ public class CreateEventCommandHandler : ICommandHandler<CreateEventCommand, Eve
 
         Event result = await _eventRepository.AddAsync(e);
 
-        return result;
+        return result.Adapt<EventModel>();
     }
 }
